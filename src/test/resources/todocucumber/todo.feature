@@ -15,7 +15,7 @@ Feature: Todo task management
 
   Scenario: Show list of todo task after remove any item
     Given The todo page is showing
-    And The below task is added to list
+    And The below tasks are added to list
       | Task     |
       | Meeting  |
       | Eating   |
@@ -29,7 +29,7 @@ Feature: Todo task management
 
   Scenario: Show list of todo task after make any task complete
     Given The todo page is showing
-    And The below task is added to list
+    And The below tasks are added to list
       | Task     |
       | Meeting  |
       | Eating   |
@@ -42,3 +42,18 @@ Feature: Todo task management
     And The list of completed is display as below order
       | Completed |
       | Eating    |
+
+  Scenario: Show new list of todo task after update a item
+    Given The todo page is showing
+    And The below tasks are added to list
+      | Task     |
+      | Meeting  |
+      | Eating   |
+      | Watching |
+    When The user attempt to change "Eating" to "Swimming"
+    And The user try to refresh webpage
+    Then The list of tasks is display as below order
+      | Task     |
+      | Meeting  |
+      | Swimming |
+      | Watching |

@@ -1,6 +1,7 @@
 package pageobject;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class TodoPage {
     final String pageUrl = "https://todomvc.com/examples/react/#/active";
-    String removeButton = "//ul[@class=\"todo-list\"]//label[text()=\"%s\"]/../button[@class=\"destroy\"]";
     String itemContainer = "//ul[@class=\"todo-list\"]//label[text()=\"%s\"]/..";
     @FindBy(css = "input.new-todo")
     public WebElement TaskInput;
@@ -50,8 +50,21 @@ public class TodoPage {
         WebElement TaskItem = this.driver.findElement(By.xpath(this.itemContainer));
         Actions mouseAction = new Actions(this.driver);
         mouseAction.moveToElement(TaskItem).perform();
+
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         WebElement remove = TaskItem.findElement(By.cssSelector("button.destroy"));
         remove.click();
+
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void CompleteTask(String item2Complete) {
@@ -59,7 +72,49 @@ public class TodoPage {
         WebElement TaskItem = this.driver.findElement(By.xpath(this.itemContainer));
         Actions mouseAction = new Actions(this.driver);
         mouseAction.moveToElement(TaskItem).perform();
+
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         WebElement complete = TaskItem.findElement(By.cssSelector("input.toggle"));
         complete.click();
+
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void EditTask(String current, String newContent)
+    {
+        this.itemContainer = String.format(this.itemContainer, current);
+        WebElement TaskItem = this.driver.findElement(By.xpath(this.itemContainer));
+        Actions mouseAction = new Actions(this.driver);
+        mouseAction.moveToElement(TaskItem).doubleClick().perform();
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        mouseAction.keyDown(Keys.COMMAND).sendKeys("a").keyUp(Keys.COMMAND).perform();
+
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mouseAction.sendKeys(Keys.DELETE).perform();
+
+        try {
+            Thread.sleep(1000); //pause to view
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mouseAction.sendKeys(newContent).sendKeys(Keys.ENTER).perform();
     }
 }

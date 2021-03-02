@@ -62,7 +62,7 @@ public class TodoStepDefinitions {
 
         Assert.assertTrue("The list of Task display as expected order", isMatched);
 
-        Thread.sleep(5000);
+        Thread.sleep(2000);
     }
 
     @Then("^The list of active tasks is display as below order$")
@@ -82,7 +82,7 @@ public class TodoStepDefinitions {
         }
 
         Assert.assertTrue("The list of Active Tasks display as expected order", isMatched);
-        Thread.sleep(5000);
+        Thread.sleep(2000);
     }
 
     @And("^The user try to refresh webpage$")
@@ -90,7 +90,7 @@ public class TodoStepDefinitions {
         this.driver.navigate().refresh();
     }
 
-    @And("^The below task is added to list$")
+    @And("^The below tasks are added to list$")
     public void the_below_task_is_added_to_list(DataTable tasks) {
         List<Map<String, String>> lstTasks = tasks.asMaps(String.class, String.class);
         for(Map<String, String> t:lstTasks){
@@ -119,5 +119,10 @@ public class TodoStepDefinitions {
 
         Assert.assertTrue("The list of Completed Task display as expected order", isMatched);
         Thread.sleep(2000);
+    }
+
+    @When("^The user attempt to change \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void the_user_attempt_to_change_something_to_something(String oldTask, String newTask) {
+        this.todoPage.EditTask(oldTask, newTask);
     }
 }
