@@ -22,11 +22,11 @@ public class Hooks {
     @After
     public void After(Scenario scenario)
     {
-        if(scenario.isFailed())
-        {
+        //if(scenario.isFailed())
+        //{
             final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", "screenshot");
-        }
+        //}
         driver.quit();
     }
 }
